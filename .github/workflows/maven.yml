@@ -16,5 +16,13 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Cache Maven repository
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        # Hash on the POM file as that would need to change to modify the dependencies or plugins in use
+        key: ${{ runner.os }}-${{ matrix.java }}-mvn-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ matrix.java }}-mvn
     - name: Build with Maven
       run: mvn -B package --file pom.xml
