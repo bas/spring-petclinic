@@ -20,7 +20,8 @@ jobs:
         uses: github/codeql-action/init@v1
         with:
           languages: java
-
+          queries: security-and-quality
+  
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
